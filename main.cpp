@@ -1,21 +1,28 @@
 #include <stdio.h>
+#include <windows.h>
 
-int Recursive(int n) {
-	if (n <= 1) {
-		return (1);
+typedef void (*PFunc)(int*);
+
+//コールバック関数
+void DispResult(int* s) {
+	printf("%d秒待って実行されたよ\n", *s); 
 }
 
-return (n * Recursive(n - 1));
+void setTimeout(PFunc p, int second) {
+	//コールバック関数を飛び出す
+	Sleep(second * 1000);
+	//macとかUnix系OSの場合
+	//sleep(second);
+	p(&second);
 }
 
-int main() { 
-int n = 10;//階乗する値
-int result;//計算結果
+int main() {
+	printf("start\n");
 
-result = Recursive(n);
-printf("%dの階乗 = %d\n", n, result);
-return (0);
-
+	PFunc p;
+	p = DispResult;
+	setTimeout(p, 3);
+	return 0;
 }
 
 
