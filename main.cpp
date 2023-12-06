@@ -8,9 +8,9 @@
 std::random_device seed_Gen;
 std::mt19937 mtrand(seed_Gen());
 
-typedef int (*Pfunc)();
+//typedef int (*Pfunc)();
 
-int RollingDice() { return std::uniform_int_distribution<int>(1, 6)(seed_Gen); }
+//int RollingDice() { return std::uniform_int_distribution<int>(1, 6)(seed_Gen); }
 
 
 void DiceResult(int diceNumber) {
