@@ -1,28 +1,64 @@
 #include <stdio.h>
-#include <windows.h>
+#include <random>
+#include <chrono>
+#include <thread>
+#include <iostream>
 
-typedef void (*PFunc)(int*);
+std::random_device seed_Gen;
+std::mt19937 mtrand(seed_Gen());
 
-//コールバック関数
-void DispResult(int* s) {
-	printf("%d秒待って実行されたよ\n", *s); 
+typedef int (*Pfunc)();
+
+int RollingDice() { return std::uniform_int_distribution<int>(1, 6)(seed_Gen); }
+
+void DiceResult(int diceNumber) {
+	// 偶数
+	if (diceNumber % 2 == 0) {
+		printf("結果　丁\n");
+	}
+	// 奇数
+	if (diceNumber % 2 == 1) {
+		printf("結果　半\n");
+	}
 }
 
-void setTimeout(PFunc p, int second) {
-	//コールバック関数を飛び出す
-	Sleep(second * 1000);
-	//macとかUnix系OSの場合
-	//sleep(second);
-	p(&second);
+int WaitingTime(Pfunc returnValue, int second) {
+	std::this_thread::sleep_for(std::chrono::seconds(second));
+	return returnValue();
 }
 
 int main() {
-	printf("start\n");
 
-	PFunc p;
-	p = DispResult;
-	setTimeout(p, 3);
+	Pfunc p;
+	p = RollingDice;
+	int Result;
+	int Answer;
+
+	while (true) {
+
+		printf("1:半　2:丁\n");
+		std::cin >> Answer;
+
+		if (Answer == 0) {
+			break;
+		}
+
+		Result = WaitingTime(p, 3);
+		printf("答え : %d\n", Result);
+		DiceResult(Result);
+
+		if (Result % 2 == 0 && Answer == 2) {
+			printf("正解\n");
+		}
+
+		else if (Result % 2 == 1 && Answer == 1) {
+			printf("正解\n");
+		}
+
+		else {
+			printf("不正解\n");
+		}
+	}
+
 	return 0;
 }
-
-
