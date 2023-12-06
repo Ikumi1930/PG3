@@ -3,6 +3,7 @@
 #include <random>
 #include <stdio.h>
 #include <thread>
+#include <functional>
 
 std::random_device seed_Gen;
 std::mt19937 mtrand(seed_Gen());
@@ -10,6 +11,7 @@ std::mt19937 mtrand(seed_Gen());
 typedef int (*Pfunc)();
 
 int RollingDice() { return std::uniform_int_distribution<int>(1, 6)(seed_Gen); }
+
 
 void DiceResult(int diceNumber) {
 	// ãÙêî
@@ -22,15 +24,18 @@ void DiceResult(int diceNumber) {
 	}
 }
 
-int WaitingTime(Pfunc returnValue, int second) {
+
+int WaitingTime(std::function<int()> returnValue, int second) {
 	std::this_thread::sleep_for(std::chrono::seconds(second));
 	return returnValue();
 }
 
+
 int main() {
 
-	Pfunc p;
-	p = RollingDice;
+	//Pfunc p;
+	//p = RollingDice;
+	std::function<int()> p = []() { return std::uniform_int_distribution<int>(1, 6)(seed_Gen); };
 	int Result;
 	int Answer;
 
