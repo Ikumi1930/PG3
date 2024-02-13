@@ -1,0 +1,6 @@
+#include "Egg.h"
+
+Egg::Egg() {}
+Egg::~Egg() {}
+
+void Egg::Size() { printf("óëÇÕè¨Ç≥Ç¢\n"); }
