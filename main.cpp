@@ -1,4 +1,4 @@
-﻿#include <stdio.h>
+#include <stdio.h>
 #include "Rectangle.h"
 #include "Circle.h"
 #include "Rectangle.h"
