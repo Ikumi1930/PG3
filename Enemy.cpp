@@ -1,12 +1,20 @@
 #include "Enemy.h"
 
 void Enemy::Update() {
-	state = static_cast<size_t>(EnemyState::Approach);
-	(this->*spFuncTable[state])();
-	state = static_cast<size_t>(EnemyState::Shot);
-	(this->*spFuncTable[state])();
-	state = static_cast<size_t>(EnemyState::Leave);
-	(this->*spFuncTable[state])();
+	switch (phase_) {
+	case 1:
+		state = static_cast<size_t>(EnemyState::Approach);
+		(this->*spFuncTable[state])();
+		break;
+	case 2:
+		state = static_cast<size_t>(EnemyState::Shot);
+		(this->*spFuncTable[state])();
+		break;
+	case 3:
+		state = static_cast<size_t>(EnemyState::Leave);
+		(this->*spFuncTable[state])();
+		break;
+	}
 }
 
 void Enemy::Approach() {

@@ -18,4 +18,5 @@ public:
 private:
 	static void (Enemy::*spFuncTable[])();
 	size_t state;
+	int phase_;
 };
