@@ -1,35 +1,32 @@
 #include "Enemy.h"
+#include <Windows.h>
+
+void (Enemy::*Enemy::spFuncTable[])() = {
+    &Enemy::Approach,
+	&Enemy::Shot, 
+	&Enemy::Leave
+
+};
 
 void Enemy::Update() {
-	switch (phase_) {
-	case 1:
-		state = static_cast<size_t>(EnemyState::Approach);
-		(this->*spFuncTable[state])();
-		break;
-	case 2:
-		state = static_cast<size_t>(EnemyState::Shot);
-		(this->*spFuncTable[state])();
-		break;
-	case 3:
-		state = static_cast<size_t>(EnemyState::Leave);
-		(this->*spFuncTable[state])();
-		break;
-	}
-}
+	(this->*spFuncTable[static_cast<size_t>(phase_)])(); 
+};
 
-void Enemy::Approach() {
-	printf("接近\n");
-	std::this_thread::sleep_for(std::chrono::seconds(2));
+//接近フェーズ
+void Enemy::Approach() { 
+	printf("近接\n");
+	Sleep(2 * 1000);
+	phase_ = Phase::Shot;
 }
 
 void Enemy::Shot() {
 	printf("射撃\n");
-	std::this_thread::sleep_for(std::chrono::seconds(2));
+	Sleep(2 * 1000);
+	phase_ = Phase::Leave;
 }
 
+//離脱フェーズ
 void Enemy::Leave() {
 	printf("離脱\n");
-	std::this_thread::sleep_for(std::chrono::seconds(2));
+	phase = false;
 }
-
-void (Enemy::*Enemy::spFuncTable[])() = {&Enemy::Approach, &Enemy::Shot, &Enemy::Leave};

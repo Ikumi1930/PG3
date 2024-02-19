@@ -1,22 +1,24 @@
 #pragma once
-#include <chrono>
 #include <stdio.h>
-#include <thread>
-
-enum class EnemyState { Approach, Shot, Leave };
 
 class Enemy {
 public:
-	void Update();
-
 	void Approach();
-
+	void Shot();
 	void Leave();
 
-	void Shot();
+	void Update();
+
+	bool GetPhase() { return phase; }
 
 private:
+	enum class Phase {
+		Approach,
+		Shot,
+		Leave,
+	};
+
 	static void (Enemy::*spFuncTable[])();
-	size_t state;
-	int phase_;
+	Phase phase_ = Phase::Approach;
+	bool phase = true;
 };

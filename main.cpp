@@ -1,9 +1,11 @@
 #include "Enemy.h"
+#include <stdio.h>
 
 int main() {
-	Enemy* enemy = new Enemy();
+	Enemy* enemy_ = new Enemy();
 
-	enemy->Update();
-
+	while (enemy_->GetPhase()){
+		enemy_->Update();
+	}
 	return 0;
 }
