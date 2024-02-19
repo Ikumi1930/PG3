@@ -1,7 +1,6 @@
-#include <stdio.h>
-#include "Rectangle.h"
 #include "Circle.h"
 #include "Rectangle.h"
+#include <stdio.h>
 
 int main(void) {
 	IShape* Ishape[2];
