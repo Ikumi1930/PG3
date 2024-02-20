@@ -1,32 +1,17 @@
-#include <stdio.h>
+#include "GameManager.h"
+#include <Novice.h>
 
-template<typename T>
-T Min(T a, T b) { 
-	if (a < b) {
-		return a;
-	}
-	else if (b < a) {
-		return b;
-	}
-}
+const char kWindowTitle[] = "PG3";
 
-template<>
-char Min<char>(char a, char b) {
-	printf("数字以外は代入できません\n");
+// Windowsアプリでのエントリーポイント(main関数)
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
+
+	// ライブラリの初期化
+	Novice::Initialize(kWindowTitle, 1280, 720);
+
+	GameManager* gameManager = new GameManager();
+
+	gameManager->Run();
+
 	return 0;
 }
-
-
-int main(void) { 
-	printf("%d\n", Min<int>(114, 514));
-	printf("%f\n", Min<float>(11.4f, 51.4f));
-	printf("%lf\n", Min<double>(111, 5));
-	Min<char>('a', 'b');
-	return 0;
-}
-
-
-
-
-
-
