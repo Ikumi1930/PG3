@@ -1,23 +1,17 @@
-#include "Circle.h"
-#include "Rectangle.h"
-#include <stdio.h>
+#include "GameManager.h"
+#include <Novice.h>
 
-int main(void) {
-	IShape* Ishape[2];
-	for (int i = 0; i < 2; i++) {
-		if (i < 1) {
-			Ishape[i] = new Circle;
-		} else {
-			Ishape[i] = new Rectangle;
-		}
-	}
+const char kWindowTitle[] = "PG3";
 
-	for (int i = 0; i < 2; i++) {
-		Ishape[i]->size(10, 10);
-	}
+// Windowsアプリでのエントリーポイント(main関数)
+int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
-	for (int i = 0; i < 2; i++) {
-		Ishape[i]->draw();
-	}
+	// ライブラリの初期化
+	Novice::Initialize(kWindowTitle, 1280, 720);
+
+	GameManager* gameManager = new GameManager();
+
+	gameManager->Run();
+
 	return 0;
 }

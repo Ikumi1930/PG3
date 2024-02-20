@@ -2,7 +2,7 @@
 #include "IScene.h"
 #include <Novice.h>
 
-class ClearScene : public IScene {
+class TitleScene : public IScene {
 public:
 	void Initialize() override;
 
