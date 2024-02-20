@@ -1,32 +1,57 @@
 #include <stdio.h>
+#include <iostream>
+#include <Windows.h>
+#include <list>
 
-template<typename T>
-T Min(T a, T b) { 
-	if (a < b) {
-		return a;
-	}
-	else if (b < a) {
-		return b;
-	}
-}
+int main() {
+	std::list<const char*> YamanoteLine = {
+	    "Tokyo",   "Kanda",        "Akihabara",  "Okachimachi", "Ueno",   "Uguisudani",
+	    "Nippori", "Tabata",       "Komagome",   "Sugamo",      "Otsuka", "Ikebukuro",
+	    "Mejiro",  "Takadanobaba", "Shin-Okubo", "Shinjuku",    "Yoyogi", "Harajuku",
+	    "Shibuya", "Ebisu",        "Meguro",     "Gotanda",     "Osaki",  "Shinagawa",
+	    "Tamachi", "Hamatsucho",   "Shimbashi",  "Yurakucho"};
 
-template<>
-char Min<char>(char a, char b) {
-	printf("”šˆÈŠO‚Í‘ã“ü‚Å‚«‚Ü‚¹‚ñ\n");
+	printf("1970\n");
+
+	for (std::list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end();
+	     itr++) {
+		printf(*itr);
+		printf(",");
+	}
+
+	printf("\n");
+	printf("\n2019\n");
+
+	for (std::list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end();
+	     itr++) {
+		if (*itr == "Tabata") {
+			itr = YamanoteLine.insert(itr, "Nishi-Nippori");
+			break;
+		}
+	}
+
+	for (std::list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end();
+	     itr++) {
+		printf(*itr);
+		printf(",");
+	}
+
+	printf("\n");
+	printf("\n2022\n");
+
+	for (std::list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end();
+	     itr++) {
+		if (*itr == "Tamachi") {
+			itr = YamanoteLine.insert(itr, "Takanawa-Gateway");
+			break;
+		}
+	}
+
+	for (std::list<const char*>::iterator itr = YamanoteLine.begin(); itr != YamanoteLine.end();
+	     itr++) {
+		printf(*itr);
+		printf(",");
+	}
+
 	return 0;
 }
-
-
-int main(void) { 
-	printf("%d\n", Min<int>(114, 514));
-	printf("%f\n", Min<float>(11.4f, 51.4f));
-	printf("%lf\n", Min<double>(111, 5));
-	Min<char>('a', 'b');
-	return 0;
-}
-
-
-
-
-
-
