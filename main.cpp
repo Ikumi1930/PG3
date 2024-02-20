@@ -1,32 +1,23 @@
 #include <stdio.h>
+#include <iostream>
+#include <thread>
 
-template<typename T>
-T Min(T a, T b) { 
-	if (a < b) {
-		return a;
-	}
-	else if (b < a) {
-		return b;
-	}
-}
+int main() {
 
-template<>
-char Min<char>(char a, char b) {
-	printf("êîéöà»äOÇÕë„ì¸Ç≈Ç´Ç‹ÇπÇÒ\n");
+	std::string a(100000, 'a');
+
+	auto CountStart = std::chrono::system_clock::now();
+	std::string copy = a;
+	auto CountStop = std::chrono::system_clock::now();
+	std::chrono::duration<double, std::micro> Copy = CountStop - CountStart;
+
+	auto MoveStart = std::chrono::system_clock::now();
+	std::string move = std::move(a);
+	auto MoveStop = std::chrono::system_clock::now();
+	std::chrono::duration<double, std::micro> Move = MoveStop - MoveStart;
+
+	std::cout << Copy.count() << "É s" << std::endl;
+	std::cout << Move.count() << "É s" << std::endl;
+
 	return 0;
 }
-
-
-int main(void) { 
-	printf("%d\n", Min<int>(114, 514));
-	printf("%f\n", Min<float>(11.4f, 51.4f));
-	printf("%lf\n", Min<double>(111, 5));
-	Min<char>('a', 'b');
-	return 0;
-}
-
-
-
-
-
-
