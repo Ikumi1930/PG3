@@ -1,32 +1,30 @@
 #include <stdio.h>
+#include <thread>
 
-template<typename T>
-T Min(T a, T b) { 
-	if (a < b) {
-		return a;
-	}
-	else if (b < a) {
-		return b;
-	}
+void Thread1(int num) {
+	num += 0;
+	printf("thread %d\n", num);
 }
 
-template<>
-char Min<char>(char a, char b) {
-	printf("”šˆÈŠO‚Í‘ã“ü‚Å‚«‚Ü‚¹‚ñ\n");
+void Thread2(int num) {
+	num += 1;
+	printf("thread %d\n", num);
+}
+
+void Thread3(int num) {
+	num += 2;
+	printf("thread %d\n", num);
+}
+
+int main() {
+	int num = 1;
+
+	std::thread th1(Thread1, num);
+	th1.join();
+	std::thread th2(Thread2, num);
+	th2.join();
+	std::thread th3(Thread3, num);
+	th3.join();
+
 	return 0;
 }
-
-
-int main(void) { 
-	printf("%d\n", Min<int>(114, 514));
-	printf("%f\n", Min<float>(11.4f, 51.4f));
-	printf("%lf\n", Min<double>(111, 5));
-	Min<char>('a', 'b');
-	return 0;
-}
-
-
-
-
-
-
